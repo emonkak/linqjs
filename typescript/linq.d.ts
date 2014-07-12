@@ -240,3 +240,7 @@ declare module linqjs {
 
 // export definition
 declare var Enumerable: linqjs.Enumerable;
+
+declare module "linqjs" {
+    export = Enumerable;
+}
