@@ -50,7 +50,7 @@ declare module linqjs {
         traverseBreadthFirst<TResult>(func: (element: T) => IEnumerable<T>, resultSelector: (element: T, nestLevel: number) => TResult): IEnumerable<TResult>;
         traverseDepthFirst<TResult>(func: (element: T) => Enumerable): IEnumerable<T>;
         traverseDepthFirst<TResult>(func: (element: T) => Enumerable, resultSelector?: (element: T, nestLevel: number) => TResult): IEnumerable<TResult>;
-        flatten(): IEnumerable<any>;
+        flatten(): IEnumerable<T>;
         pairwise<TResult>(selector: (prev: T, current: T) => TResult): IEnumerable<TResult>;
         scan(func: (prev: T, current: T) => T): IEnumerable<T>;
         scan<TAccumulate>(seed: TAccumulate, func: (prev: TAccumulate, current: T) => TAccumulate): IEnumerable<TAccumulate>;
@@ -125,14 +125,11 @@ declare module linqjs {
         reverse(): IEnumerable<T>;
         shuffle(): IEnumerable<T>;
         weightedSample(weightSelector: (element: T) => number): IEnumerable<T>;
-        // truly, return type is IEnumerable<IGrouping<TKey, T>> but Visual Studio + TypeScript Compiler can't compile.
-        groupBy<TKey>(keySelector: (element: T) => TKey): IEnumerable<IGrouping<TKey, any>>;
+        groupBy<TKey>(keySelector: (element: T) => TKey): IEnumerable<IGrouping<TKey, T>>;
         groupBy<TKey, TElement>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TElement): IEnumerable<IGrouping<TKey, TElement>>;
         groupBy<TKey, TElement, TResult>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TElement, resultSelector: (key: TKey, element: IEnumerable<TElement>) => TResult): IEnumerable<TResult>;
         groupBy<TKey, TElement, TResult, TCompare>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TElement, resultSelector: (key: TKey, element: IEnumerable<TElement>) => TResult, compareSelector: (element: T) => TCompare): IEnumerable<TResult>;
-        // :IEnumerable<IGrouping<TKey, T>>
-        partitionBy<TKey>(keySelector: (element: T) => TKey): IEnumerable<IGrouping<TKey, any>>;
-        // :IEnumerable<IGrouping<TKey, TElement>>
+        partitionBy<TKey>(keySelector: (element: T) => TKey): IEnumerable<IGrouping<TKey, T>>;
         partitionBy<TKey, TElement>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TElement): IEnumerable<IGrouping<TKey, TElement>>;
         partitionBy<TKey, TElement, TResult>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TElement, resultSelector: (key: TKey, element: IEnumerable<TElement>) => TResult): IEnumerable<TResult>;
         partitionBy<TKey, TElement, TResult, TCompare>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TElement, resultSelector: (key: TKey, element: IEnumerable<TElement>) => TResult, compareSelector: (element: T) => TCompare): IEnumerable<TResult>;
@@ -168,13 +165,11 @@ declare module linqjs {
         asEnumerable(): IEnumerable<T>;
         cast<TResult>(): IEnumerable<TResult>;
         toArray(): T[];
-        // truly, return type is ILookup<TKey, T> but Visual Studio + TypeScript Compiler can't compile. 
-        toLookup<TKey>(keySelector: (element: T) => TKey): ILookup<TKey, any>;
+        toLookup<TKey>(keySelector: (element: T) => TKey): ILookup<TKey, T>;
         toLookup<TKey, TElement>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TElement): ILookup<TKey, TElement>;
         toLookup<TKey, TElement, TCompare>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TElement, compareSelector: (key: TKey) => TCompare): ILookup<TKey, TElement>;
         toObject(keySelector: (element: T) => any, elementSelector?: (element: T) => any): Object;
-        // :IDictionary<TKey, T>
-        toDictionary<TKey>(keySelector: (element: T) => TKey): IDictionary<TKey, any>;
+        toDictionary<TKey>(keySelector: (element: T) => TKey): IDictionary<TKey, T>;
         toDictionary<TKey, TValue>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TValue): IDictionary<TKey, TValue>;
         toDictionary<TKey, TValue, TCompare>(keySelector: (element: T) => TKey, elementSelector: (element: T) => TValue, compareSelector: (key: TKey) => TCompare): IDictionary<TKey, TValue>;
         toJSONString(replacer: (key: string, value: any) => any): string;
